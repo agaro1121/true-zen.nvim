@@ -115,7 +115,12 @@ function M.off()
 
 	for k, v in pairs(original_opts) do
 		if k ~= "highlights" then
-			o[k] = v
+			-- o[k] = v
+            if type(v) == 'boolean' and type(o[k]) == 'number' then -- error about showmode
+                o[k] = v and 1 or 0
+            elseif type(v) == 'boolean' and type(o[k]) == 'string' then -- error about signcolumn
+                o[k] = v and 'on' or 'off' -- v and 'yes' or 'no'
+            end
 		end
 	end
 
